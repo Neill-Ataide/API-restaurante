@@ -6,14 +6,20 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import uea.restaurante.dto.ResumoConsumidorDto;
 import uea.restaurante.models.Consumidor;
 import uea.restaurante.repositories.ConsumidorRepository;
+import uea.restaurante.repositories.filters.ConsumidorFilter;
 
 @Service
 public class ConsumidorServices {
 	
 	@Autowired
 	private ConsumidorRepository consumidorRepository;
+	
+	public List<ResumoConsumidorDto> resumir (ConsumidorFilter consumidorFilter){
+		return consumidorRepository.filtrar(consumidorFilter);
+	}
 	
 	public Consumidor criar(Consumidor consumidor) {
 		return consumidorRepository.save(consumidor);

@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import uea.restaurante.dto.ResumoConsumidorDto;
 import uea.restaurante.models.Consumidor;
+import uea.restaurante.repositories.filters.ConsumidorFilter;
 import uea.restaurante.services.ConsumidorServices;
 
 @RestController
@@ -36,9 +38,9 @@ public class ConsumidorResources {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Consumidor>> listar() {
-		List<Consumidor> consumidores = consumidorServices.listar();
-		return ResponseEntity.ok().body(consumidores);
+	public ResponseEntity<List<ResumoConsumidorDto>> listar(ConsumidorFilter consumidorFilter) {
+		List<ResumoConsumidorDto> resumos = consumidorServices.resumir(consumidorFilter);
+		return ResponseEntity.ok().body(resumos);
 	}
 
 	@GetMapping(value = "/{codigo}")
